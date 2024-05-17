@@ -1,3 +1,9 @@
+/**
+ * @author Simon Braeger
+ * @param Size of Screen (Width, Height)
+ * @param Title of Screen
+ */
+
 package pack;
 
 import java.awt.Color;
@@ -20,7 +26,7 @@ public class Display {
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
-
+       
         // Create the window
         window = GLFW.glfwCreateWindow(x, y, name, 0, 0);
         if (window == 0) {
@@ -62,18 +68,5 @@ public class Display {
         // Terminate GLFW
         GLFW.glfwTerminate();
     }
-
-    public static void main(String[] args) {
-    	ArrayList<Polygon2D> list = new ArrayList<Polygon2D>();
-    	list.add(new Polygon2D(new Point(0,0),new Point(500,500), new Point(500,0), Color.cyan));
-    	list.add(new Polygon2D(new Point(0,0),new Point(0,500), new Point(500,500), Color.cyan));
-
-    	list.add(new Polygon2D(new Point(0,0),new Point(-500,500), new Point(-500,10), Color.cyan));
-
-    	
-        Display display = new Display();
-        display.init(800,600,"UTG3");
-        display.loop(list);
-        display.cleanup();
-    }
+    
 }

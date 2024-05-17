@@ -7,59 +7,41 @@ package pack;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Polygon2D {
 	
-	private Point p1;
-	private Point p2;
-	private Point p3;
+	
+	private ArrayList<Point> points;
 
 	private Color color = Color.white;
 	
-	public Polygon2D(Point p1, Point p2, Point p3) {
-		this.setP1(p1);
-		this.setP2(p2);
-		this.setP3(p3);
+	public Polygon2D(Point[] points) {
+		this.points = new ArrayList<Point>();
+		for(Point p:points)
+		{
+			this.points.add(p);
+		}
 	}
 	
-	public Polygon2D(Point p1, Point p2, Point p3, Color color) {
-		this.setP1(p1);
-		this.setP2(p2);
-		this.setP3(p3);
-		this.setColor(color);
+	public Polygon2D(Point[] points, Color color) {
+		this.points = new ArrayList<Point>();
+		for(Point p:points)
+		{
+			this.points.add(p);
+		}
+		setColor(color);
 	}
-
 	
-	public Point getP1() {
-		return p1;
-	}
 
-	public void setP1(Point p1) {
-		this.p1 = p1;
-	}
-
-	public Point getP2() {
-		return p2;
-	}
-
-	public void setP2(Point p2) {
-		this.p2 = p2;
-	}
-
-	public Point getP3() {
-		return p3;
-	}
-
-	public void setP3(Point p3) {
-		this.p3 = p3;
-	}
-
-	public Point[] getPoints()
+	public void addPoint(Point p)
 	{
-		Point[] points = new Point[3];
-		points[0] = p1;
-		points[1] = p2;
-		points[2] = p3;
+		points.add(p); 
+	}
+	
+
+	public ArrayList<Point> getPoints()
+	{
 		return points;
 
 	}

@@ -1,3 +1,9 @@
+/**
+ * @author Simon Braeger
+ * @param Used with a valid display.
+ *
+ */
+
 package pack;
 
 import org.lwjgl.opengl.GL;
@@ -44,7 +50,7 @@ public class Renderer {
         	glColor3f(red, green, blue);
 
         	//Get Points Array
-        	Point[] javaPoints = polygon.getPoints();
+        	ArrayList<Point> javaPoints = polygon.getPoints();
         	
         	//Draw the Polygon
         	glBegin(GL_POLYGON);
