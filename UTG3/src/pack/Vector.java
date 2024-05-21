@@ -34,7 +34,14 @@ public class Vector
     public void applyVector(Point3D point)
     {
     	point.changeCoordinates(fX,fY,fZ);
-		}
-}
+    }
+
+    public Vector resultant(Vector other)
+    {
+  	double x = this.fX+other.fX;
+  	double y = this.fY+other.fY;
+      	double z = this.fZ+other.fZ;
+  	return new Vector (x,y,z);
+    }
 
   }
