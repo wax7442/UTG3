@@ -47,6 +47,9 @@ public class Polygon3D {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
+	/*public double collide(Polygon3D other){
+		return something with vectors
+	}*/
 
 }
