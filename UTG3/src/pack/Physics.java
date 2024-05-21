@@ -2,9 +2,14 @@ public class Physics
 {
   static final double GRAVITY = 9.80665;
 
-  static double calcGrav(Polygon3D polygon)
+  static double getGravity()
   {
-    return polygon.getMass()*GRAVITY;
-  
+    return GRAVITY;
+  }
+
+  public double collide(Polygon3D polygon)
+  {
+    
+  }
   
 }
