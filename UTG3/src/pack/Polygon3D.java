@@ -1,47 +1,52 @@
 package pack;
 
-public class Point3D {
-	private double x;
-	private double y;
-	private double z;
-	public Point3D(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+import java.awt.Color;
+//import java.awt.Point;
+import java.util.ArrayList;
+
+public class Polygon3D {
+	
+	
+	private ArrayList<Point3D> points;
+
+	private Color color = Color.white;
+	
+	public Polygon3D(Point[] points) {
+		this.points = new ArrayList<Point3D>();
+		for(Point3D p:points)
+		{
+			this.points.add(p);
+		}
 	}
-	public double getX() {
-		return x;
+	
+	public Polygon3D(Point[] points, Color color) {
+		this.points = new ArrayList<Point3D>();
+		for(Point3D p:points)
+		{
+			this.points.add(p);
+		}
+		setColor(color);
 	}
-	public double getY() {
-		return y;
+	
+
+	public void addPoint(Point3D p)
+	{
+		points.add(p); 
 	}
-	public double getZ() {
-		return z;
+	
+
+	public ArrayList<Point3D> getPoints()
+	{
+		return points;
+
 	}
-	public void changeCoordinates(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+	public Color getColor() {
+		return color;
 	}
-	public void changeX(double x) {
-		this.x+=x;
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
-	public void changeY(double y) {
-		this.y+=y;
-	}
-	public void changeZ(double z) {
-		this.z+=z;
-	}
-	public void setX(double x) {
-		this.x = x;
-	}
-	public void setY(double y) {
-		this.y = y;
-	}
-	public void setZ(double z) {
-		this.z = z;
-	}
-	public String toString() {
-		return "X: " + x + ", Y: " + y + ", Z: " + z;
-	}
+	
+
 }
