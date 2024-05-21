@@ -1,18 +1,40 @@
 public class Vector
   {
-    private double force, direction;
-
+    private double fX,fY,fZ;
+    
     public Vector()
     {
-      force = Physics.GRAVITY;
-      direction = 3*Math.PI/4;
+      fX = 0;
+      fY = 0;
+      fZ = 0;
     }
 
-    public Vector(forc, dir)
+    public Vector(double forceX, forceY, forceZ)
     {
-      force = forc;
-      direction = dir;
+      fX = forceX;
+      fY = forceY;
+      fZ = forceZ;
     }
-
     
+    public double getForceX()
+    {
+   	 return fX;
+    }
+    
+    public double getForceY()
+    {
+    	return fY;
+    }
+    
+    public double getForceZ()
+    {
+    	return fZ;
+    }
+    
+    public void applyVector(Point3D point)
+    {
+    	point.changeCoordinates(fX,fY,fZ);
+		}
+}
+
   }
