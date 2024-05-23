@@ -1,3 +1,7 @@
+/* Creates vectors to be applied to the points
+*  updated 5/23/2024
+*  authors Carter Haas, Kyle Slavic
+*/
 public class Vector
   {
     private double fX,fY,fZ;
@@ -40,8 +44,13 @@ public class Vector
     {
   	double x = this.fX+other.fX;
   	double y = this.fY+other.fY;
-      	double z = this.fZ+other.fZ;
+    double z = this.fZ+other.fZ;
   	return new Vector (x,y,z);
     }
+    
+    public Vector applyAccel(AccVector accVector)
+   {
+  	return new Vector(fX+accVector.getForceX(),fY+accVector.getForceY(),fZ+accVector.getForceZ());
+   }
 
   }
