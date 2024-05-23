@@ -9,7 +9,7 @@ public class Vector
       fZ = 0;
     }
 
-    public Vector(double forceX, forceY, forceZ)
+    public Vector(double forceX, double forceY, double forceZ)
     {
       fX = forceX;
       fY = forceY;
