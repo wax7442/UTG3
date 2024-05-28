@@ -19,6 +19,15 @@ public class Vector
       fY = forceY;
       fZ = forceZ;
     }
+
+    //"constructs" a vector based on a scalar with two angles 
+    public void angleVec(double scalar, double yaw, double pitch)
+    {
+	    fX = scalar*Math.cos(pitch)*Math.cos(yaw);
+      fY = scalar*Math.sin(pitch)
+      fZ = scalar*Math.sin(pitch)*Math.sin(yaw);
+    }
+
     
     public double getForceX()
     {
