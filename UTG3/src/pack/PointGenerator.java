@@ -41,4 +41,13 @@ private Scanner input;
         }
     }
   }
-//No IDEA if this works even close to 
+}
+
+public static void main(String[] args)
+{
+    File myFile = new File ("C:\\Users\\carte\\Documents\\cat.txt");
+    
+    for(Point3D point: vertexList)
+        {
+            System.out.println(point);
+        }
