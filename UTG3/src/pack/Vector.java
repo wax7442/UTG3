@@ -53,4 +53,9 @@ public class Vector
   	return new Vector(fX+accVector.getForceX(),fY+accVector.getForceY(),fZ+accVector.getForceZ());
    }
 
+    public String toString()
+    {
+      return "X: " + fX + ", Y: " + fY + ", Z: " + fZ;
+    }
+
   }
