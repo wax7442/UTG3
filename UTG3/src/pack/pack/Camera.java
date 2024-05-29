@@ -19,6 +19,7 @@ public class Camera extends Point3D {
 	private double screenHeight = 600;
 	private double FOVhrz = Math.PI/2;
 	private double FOVvert = FOVhrz * (screenHeight/screenWidth);
+//	private double FOVvert = FOVhrz * (screenHeight/screenWidth);
 	public ArrayList<Polygon2D> getImage(Scene scene) {	//It's exceedingly silly that cam is part of scene, and also requires it as a parameter here
 		ArrayList<Polygon2D> image = new ArrayList<Polygon2D>();
 		ArrayList<Polygon3D> polys = new ArrayList<Polygon3D>();
@@ -42,6 +43,9 @@ public class Camera extends Point3D {
 			}
 		}
 		
+		/**
+		 * This for loop works almost perfectly. I believe that the Polygon2Ds are shifted a bit to the left for some reason, but I might just be trippin -Loff
+		 */
 		for(Polygon3D poly : polys) {
 			Polygon2D poly2D = new Polygon2D(poly.getColor());
 			for(int i = 0; i < poly.getPoints().size(); i++)
@@ -49,32 +53,39 @@ public class Camera extends Point3D {
 				Point3D point = poly.getPoints().get(i);
 				
 				// Horizontal stuff
-				double x = Math.pow(Math.tan(angleH+(Math.PI/2))+point.getY()-this.getY()/Math.tan(angleH)-1,-1)*(point.getX()+this.getX())+point.getX();
+				Point3D refPoint = new Point3D(point.getX(), point.getY(), this.getZ());
+				double x = (-this.getX() + point.getX())/((Math.tan(angleH+Math.PI/2) + point.getY() - this.getY())/Math.tan(angleH)-1) + point.getX();
 				double y = Math.tan(angleH)*(x-this.getX())+this.getY();
-				Point3D pointHrzT = new Point3D(x, y, 0);
-				double a = Point3D.getDistanceBetween(point, pointHrzT);
-				double b = Point3D.getDistanceBetween(point, this);
-				double c = Point3D.getDistanceBetween(pointHrzT, this);
-				double angleHrzActual = Math.acos(((b*b)+(c*c)-(a*a))/(2*b*c));
-				double location2DHrz = angleHrzActual/FOVhrz * screenWidth;
+				Point3D pointHrzT = new Point3D(x, y, this.getZ());
+				System.out.println("pointHrzT: " + pointHrzT);
+				double adj = getDistanceBetween(pointHrzT, this);
+				double opp = getDistanceBetween(pointHrzT, refPoint);
 				
-				// Vertical stuff
-//				double vectorMag = Math.sqrt(Math.pow(point.getX()-this.getX(),2) + Math.pow(point.getY()-this.getY(),2));
-//				Point3D refPoint = new Point3D(vectorMag * Math.cos(angleH), vectorMag * Math.sin(angleH), point.getZ());
-//				Point3D refPointXYPlane = new Point3D(refPoint.getX(), refPoint.getY(), 0);
-				Point3D refPoint = point;
-				Point3D refPointXYPlane = new Point3D(1, -1, 0);
-				System.out.println(point);
-//				System.out.println(new Point3D(vectorMag * Math.cos(angleH), vectorMag * Math.sin(angleH), point.getZ()));
-				a = Point3D.getDistanceBetween(refPoint, refPointXYPlane);
-				b = Point3D.getDistanceBetween(refPoint, this);
-				c = Point3D.getDistanceBetween(refPointXYPlane, this);
-				double pointToPlaneAngle = Math.acos(((b*b)+(c*c)-(a*a))/(2*b*c));
-				System.out.println("ptpa: " + pointToPlaneAngle + ", angleV: " + angleV);
-				double angleVertActual = pointToPlaneAngle - angleV;
-				double location2DVert = angleVertActual/FOVvert * screenHeight;
+				Point3D pointRelToCam = new Point3D(point.getX() - this.getX(), point.getY() - this.getY(), point.getZ() - this.getZ());
+				double pointAngFromCamHrz = Math.atan(pointRelToCam.getY()/pointRelToCam.getX());
+				turnLeftRight(0);	//Ensuring angleH is in the interval [0, 360)
+				double negPosH = angleH - pointAngFromCamHrz / Math.abs(angleH - pointAngFromCamHrz);
 				
+				double angleHrzActual = negPosH * Math.atan(opp/adj);	//This needs to return negative values sometimes (I'm almost certain this is THE issue) //It was >:)	
+				double location2DHrz = (angleHrzActual/FOVhrz) * screenWidth;
+				
+				//Vertical stuff
+				refPoint = new Point3D(pointHrzT.getX(), pointHrzT.getY(), point.getZ());
+				System.out.println("refPoint: " + refPoint);
+				adj = getDistanceBetween(this, pointHrzT);
+				opp = getDistanceBetween(pointHrzT, refPoint);
+				
+				double pointAngFromCamVert = Math.atan(pointRelToCam.getZ()/getDistanceBetween(this, pointHrzT));	//The pointHrzT is not an error.
+				turnUpDown(0);	//Ensuring angleV is in the interval [0, 360)
+				double negPosV = angleV - pointAngFromCamVert / Math.abs(angleV - pointAngFromCamVert);
+				
+				double angleVertActual = -negPosV * Math.atan(opp/adj);	//this will see same problems as horizontal and only return pos when it sometimes needs neg
+				System.out.println(angleVertActual);
+				double location2DVert = screenHeight * (angleVertActual/FOVvert);
+				
+				//Final point
 				poly2D.addPoint(new Point((int)location2DHrz, (int)location2DVert));
+				
 			}
 			image.add(poly2D);
 			System.out.println("Adding a polygon2D to image in getImage() method of Camera class, Polygon: " + poly2D);
