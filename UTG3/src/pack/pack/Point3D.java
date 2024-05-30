@@ -7,6 +7,12 @@ package pack;
 
 public class Point3D {
 	
+//	public static void main(String args[]) {	//Old test, successful -Loff
+//		Point3D p1 = new Point3D();
+//		Point3D p2 = new Point3D(1, 1, 1);
+//		System.out.println(getDistanceBetween(p1, p2));
+//	}
+	
 	private double x;
 	private double y;
 	private double z;
@@ -32,12 +38,11 @@ public class Point3D {
 		return z;
 	}
 	
-	public void setCoordinates(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+	public void changeCoordinates(double x, double y, double z) {
+		this.x += x;
+		this.y += y;
+		this.z += z;
 	}
-	
 	public void changeX(double x) {
 		this.x += x;
 	}
@@ -48,6 +53,11 @@ public class Point3D {
 		this.z += z;
 	}
 	
+	public void setCoordinates(double x, double y, double z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
 	public void setX(double x) {
 		this.x = x;
 	}

@@ -55,9 +55,9 @@ public class Renderer {
         	for (Point javaPoint : javaPoints) {
             	// Map Java point to OpenGL coordinates
             	float x = (float) javaPoint.getX() / (float) width  ; // Map x-coordinate
-            	float y =  1- (float) -javaPoint.getY() / (float) height -2; // Map y-coordinate
+            	float y = 1 - (float) -javaPoint.getY() / (float) height -2; // Map y-coordinate
 
-            	glVertex2f(x, y);
+            	glVertex2f(x, y);	//This sets the origin (probably) -Loff
         	}
         	glEnd();
     	}

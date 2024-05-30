@@ -41,8 +41,8 @@ public class Display {
         GLFW.glfwShowWindow(window);
     }
 
-    public void loop(ArrayList<Polygon2D> list) {
-    	
+    public void loop(Scene scene) throws InterruptedException {
+    	ArrayList<Polygon2D> list = scene.getActiveCamera().getImage(scene);
         Renderer renderer = new Renderer();
         int[] width = new int[1];
         int[] height = new int[1];
@@ -52,6 +52,12 @@ public class Display {
         
         // Main loop
         while (!GLFW.glfwWindowShouldClose(window)) {
+        	
+        	//Next 3 lines are for testing purposes
+        	list = scene.getActiveCamera().getImage(scene);
+        	scene.getActiveCamera().turnLeftRight(Math.PI*2 / 365);
+        	Thread.sleep(20);
+        	
             // Render
             GLFW.glfwGetWindowSize(window, width, height);
             renderer.render(list,width[0],height[0]);
